@@ -18,7 +18,7 @@ public class TodoMapperTest {
 	
 	@Test
 	public void todoSelectList() {
-		//System.out.println(mapper.todoSelectList() );
+		System.out.println(mapper.findAll() );
 	}
 	
 	
@@ -26,7 +26,5 @@ public class TodoMapperTest {
 	public void dotoInsert() {
 		TodoVO vo = new TodoVO();
 		vo.setContents("aaaa");
-		//mapper.todoInsert(vo);
-		System.out.println(vo); 
-	}
+		mapper.persist(vo);
 }
