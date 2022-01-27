@@ -2,15 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.myserver.emp.mapper.EmployeeMapper"> 
 
-<select id="findEmployees" 
-        resultType="employee">
-	select * 
+<select id="findEmployees"  resultType="employee">
+	select employee_id, first_name, last_name, job_id
 	from employees
 	order by employee_id  
 </select>
 
 <insert id="persist" >
-	insert into employees () values ()
+	insert into employees (
+			employee_id,
+			first_name,
+			last_name,
+			email,
+			hire_date,
+			job_id
+	) values (
+			#{employee_id},
+			#{first_name},
+			#{last_name},
+			#{email},
+			#{hire_date},
+			#{job_id}
+	)
 </insert>
 
 <insert id="remove" >

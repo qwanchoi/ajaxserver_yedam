@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yedam.myserver.users.mapper.UserMapper;
@@ -18,9 +20,14 @@ public class UserController {
 
 	@Autowired UserMapper mapper;
 	
+	@GetMapping("/userSelectAll")
+	public List<UserVO> userSelect() {
+		return mapper.find();
+	}
+	
 	@GetMapping("/userSelect")
-	public List<Map> userSelectList(UserVO vo) {
-		return mapper.findByName(vo);
+	public UserVO userSelectList(UserVO vo) {
+		return mapper.findById(vo);
 	}
 		
 	@PostMapping("/userInsert")
@@ -29,8 +36,8 @@ public class UserController {
 		 return vo;
 	}
 	
-	@PostMapping("/userUpdate")
-	public UserVO userUpdate(UserVO vo) {
+	@PutMapping("/userUpdate")
+	public UserVO userUpdate(@RequestBody UserVO vo) {
 		 mapper.merge(vo);
 		 return vo;
 	}	

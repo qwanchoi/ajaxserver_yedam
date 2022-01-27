@@ -1,4 +1,4 @@
-package co.micol.prj;
+package com.yedam.myserver;
 
 import java.util.List;
 
@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import co.micol.prj.cart.mapper.CartMapper;
-import co.micol.prj.cart.vo.CartVO;
+import com.yedam.myserver.cart.mapper.CartMapper;
+import com.yedam.myserver.cart.vo.CartVO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="file:src/main/webapp/WEB-INF/spring/*-context.xml")
@@ -21,12 +21,12 @@ public class CartMapperTest {
 	public void cartDelete() {
 		CartVO vo = new CartVO();
 		vo.setNo("1");
-		mapper.cartDelete(vo);
+		mapper.remove(vo);
 	}	
 	
 	@Test
 	public void cartSelectList() {
-		List<CartVO> list = mapper.cartSelectList();
+		List<CartVO> list = mapper.findAll();
 		System.out.println(list.size());
 	}
 }
