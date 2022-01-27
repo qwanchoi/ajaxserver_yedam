@@ -27,4 +27,5 @@ public class TodoMapperTest {
 		TodoVO vo = new TodoVO();
 		vo.setContents("aaaa");
 		mapper.persist(vo);
+	}
 }
