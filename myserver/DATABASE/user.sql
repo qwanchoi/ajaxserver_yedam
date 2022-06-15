@@ -4,7 +4,7 @@ password varchar2(8),
 name     varchar2(20),
 role     varchar2(5));
 
-insert into users values('test','test123','°ü¸®ÀÚ','Admin');
-insert into users values('user1','user1','È«±æµ¿','User');
+insert into users values('test','test123','ê´€ë¦¬ì','Admin');
+insert into users values('user1','user1','ì‚¬ìš©ì','User');
 
 commit;

@@ -39,7 +39,8 @@
 	function userDelete() {
 		//삭제 버튼 클릭
 		$('body').on('click','#btnDelete',function(){
-			var userId = $(this).closest('tr').find('#hidden_userId').val();
+			//var userId = $(this).closest('tr').find('#hidden_userId').val();
+			var userId = $(this).closest('tr').data('id');
 			var result = confirm(userId +" 사용자를 정말로 삭제하시겠습니까?");
 			if(! result) 
 				return;
@@ -62,7 +63,8 @@
 	function userSelect() {
 		//조회 버튼 클릭
 		$('body').on('click','#btnSelect',function(){
-			var userId = $(event.target).closest('tr').find('#hidden_userId').val();
+			//var userId = $(event.target).closest('tr').find('#hidden_userId').val();
+			var userId = $(this).closest('tr').data("id");
 			//특정 사용자 조회
 			$.ajax({
 				url:conPath + '/userSelect',
@@ -79,26 +81,25 @@
 	
 	//사용자 조회 응답
 	function userSelectResult(user) {
-		$('input:text[name="id"]').val(user.id);
-		$('input:text[name="name"]').val(user.name);
-		$('input:text[name="password"]').val(user.password);
-		$('select[name="role"]').val(user.role).attr("selected", "selected");
+		 $('input:text[name="id"]').val(user.id);
+		 $('input:text[name="name"]').val(user.name);
+		 $('input:text[name="password"]').val(user.password);
+		 $('select[name="role"]').val(user.role).attr("selected", "selected");
 	}//userSelectResult
 	
 	//사용자 수정 요청
 	function userUpdate() {
 		//수정 버튼 클릭
 		$('#btnUpdate').on('click',function(){
-			var id = $('input:text[name="id"]').val();
-			var name = $('input:text[name="name"]').val();
-			var password = $('input:text[name="password"]').val();
-			var role = $('select[name="role"]').val();		
+			//var id = $('input:text[name="id"]').val();
+			//var name = $('input:text[name="name"]').val();
+			//var password = $('input:text[name="password"]').val();
+			//var role = $('select[name="role"]').val();		
 			$.ajax({ 
 			    url: conPath + '/userUpdate', 
-			    type: 'PUT', 
+			    type: 'POST', 
 			    dataType: 'json', 
-			    data: JSON.stringify({ id: id, name:name,password: password, role: role }),
-			    contentType: 'application/json'
+			    data: $('#form1').serialize(), // 폼 => 쿼리문자열
 			}).done( function(data) { 
 			        userList();
 			}).fail( function(xhr, status, message) { 
@@ -117,8 +118,8 @@
 			var role = $('select[name="role"]').val();		
 			$.ajax({ 
 			    url: conPath + '/userInsert',  
-			    type: 'POST',  
-			    data: { id: id, name:name,password:password, role:role }
+			    type: 'POST', // == method  
+			    data: { id: id, name:name,password:password, role:role },
 			    dataType: 'json', 
 			 }).done( function(response) {
 			    		userList();
@@ -165,18 +166,19 @@
 			alert("상태값 :" + status + " Http에러메시지 :"+msg);
 		}).done(function(datas){
 			$("tbody").empty();
-			$.each(datas,function(idx,item){
+			for(item of datas) {
 				$('<tr>')
+				.data("id", item.id)
 				.append($('<td>').html(item.id))
 				.append($('<td>').html(item.name))
 				.append($('<td>').html(item.password))
 				.append($('<td>').html(item.role))
 				.append($('<td>').html('<button id=\'btnSelect\'>조회</button>'))
 				.append($('<td>').html('<button id=\'btnDelete\'>삭제</button>'))
-				.append($('<input type=\'hidden\' id=\'hidden_userId\'>').val(item.id))
+				//.append($('<input type=\'hidden\' id=\'hidden_userId\'>').val(item.id))
 				.appendTo('tbody');
-			});//each
-		});
+			}; //for
+		}); // done
 	}//userList
 </script>
 </head>
