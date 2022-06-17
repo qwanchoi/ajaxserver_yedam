@@ -9,10 +9,10 @@
 </select>
 
 <insert id="persist">
-	<selectKey order="BEFORE" keyProperty="no" resultType="string">
-		<!-- select 시퀀스.nextval from dual -->
+	<!-- <selectKey order="BEFORE" keyProperty="no" resultType="string">
+		select 시퀀스.nextval from dual
 		SELECT MAX(no)+1 FROM TODO
-	</selectKey>
+	</selectKey> -->
 	INSERT INTO 
 	       TODO (NO, 
 	             CONTENTS, 
