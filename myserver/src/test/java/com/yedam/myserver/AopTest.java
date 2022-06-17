@@ -19,9 +19,9 @@ public class AopTest {
 	@Test
 	public void test() {
 		TodoVO vo = new TodoVO();
-		vo.setNo("7");
 		vo.setContents("my aop test");
 		todoService.persist(vo); // jpa
 		//todoService.findAll();
+		System.out.println("==========" + vo.getNo()); 
 	}
 }

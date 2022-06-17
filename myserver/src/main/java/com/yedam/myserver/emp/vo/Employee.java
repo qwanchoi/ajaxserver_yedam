@@ -1,6 +1,9 @@
 package com.yedam.myserver.emp.vo;
 
-import java.util.Date;
+
+import java.sql.Date;
+
+//import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -10,10 +13,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Data
 @Builder  //생성자 만들어줌
+@NoArgsConstructor
 @AllArgsConstructor
 public class Employee {
 
@@ -32,5 +37,7 @@ public class Employee {
 	private String first_name;
 	private Integer employee_id;
 	private String department_name;
+	
+	private Departments department;
 	
 }

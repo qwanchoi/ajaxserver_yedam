@@ -8,18 +8,21 @@
 	 ORDER BY NO 
 </select>
 
-<insert id="persist">
+<insert id="persist" statementType="CALLABLE" >
+	{ call TODO_INS( #{contents},
+										#{no, mode=OUT, jdbcType=NUMERIC, javaType=string}
+	)}
 	<!-- <selectKey order="BEFORE" keyProperty="no" resultType="string">
 		select 시퀀스.nextval from dual
 		SELECT MAX(no)+1 FROM TODO
 	</selectKey> -->
-	INSERT INTO 
+	<!-- INSERT INTO 
 	       TODO (NO, 
 	             CONTENTS, 
 	             TODOYN ) 
          VALUES ( #{no}, 
                  #{contents}, 
-                 '0' )
+                 '0' ) -->
 </insert>
  
 <update id="merge">

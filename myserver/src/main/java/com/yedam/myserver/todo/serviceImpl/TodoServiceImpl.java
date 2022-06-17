@@ -24,8 +24,7 @@ public class TodoServiceImpl implements TodoService {
 	@Override
 	@Transactional
 	public void persist(TodoVO vo) {
-		mapper.persist(vo); // autocommit
-		mapper.persist(vo); // error -> rollback
+		mapper.persist(vo); //
 	}
 
 	@Override

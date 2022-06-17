@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.yedam.myserver.emp.mapper.EmployeeMapper"> 
+<mapper namespace="com.yedam.myserver.emp.mapper.EmployeeMapper">
 
-<select id="findEmployees"  resultType="employee">
-	select * 
-	from employees
-	order by employee_id  
+<resultMap type="employee" id="employeeMapSelect">
+	<association property="department" 
+								javaType="departments"
+								column="department_id"  
+								select="findDepartment" />
+</resultMap>
+
+<select id="findDepartment" resultType="departments">
+	SELECT * 
+		FROM departments 
+	WHERE department_id = #{department_id}
+</select>
+ 
+<!-- <resultMap type="employee" id="employeeMap">
+	<id column="employee_id" property="employee_id" />
+	<result column="FIRST_NAME" property="first_name"/>
+	<result column="email" property="email" />
+	<association property="department">
+		<id column="department_id" property="department_id" />
+		<result column="department_name" property="department_name" />
+		<result column="location_id" property="location_id" />
+	</association>
+</resultMap> -->
+
+<select id="findEmployees"  resultMap="employeeMapSelect">
+	<!-- SELECT e.*, 
+				d.department_name, 
+				d.location_id, 
+				d.manager_id
+		FROM employees e JOIN departments d
+	ON (e.department_id = d.department_id)
+	ORDER BY employee_id   -->
+	SELECT *
+		FROM employees
+	ORDER BY employee_id
 </select>
 
 <insert id="persist" >
@@ -42,9 +73,24 @@
 	where employee_id = #{employee_id}
 </update>
 
-<select id="findJobs" resultType="jobs">
-	select job_id, job_title 
+<resultMap type="jobs" id="jobEmployeeMap">
+	<id column="job_id" property="job_id" />
+	<collection property="employees" 
+							javaType="ArrayList" 
+							column="job_id" 
+							ofType="employee"
+							select="findJobEmployees">
+	</collection>
+</resultMap>
+<select id="findJobs" resultMap="jobEmployeeMap">
+	select job_id, job_title, min_salary, max_salary 
 	  from jobs
+	 order by job_id 
+</select>
+<select id="findJobEmployees" resultType="employee">
+	select * 
+	  from employees
+	 WHERE job_id = #{job_id}
 	 order by job_id 
 </select>
 
