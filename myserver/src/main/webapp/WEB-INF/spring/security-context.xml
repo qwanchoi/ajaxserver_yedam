@@ -27,15 +27,16 @@
 	</security:http>
 	<security:authentication-manager>
 		<security:authentication-provider>
-			<security:user-service>
-			
+			<security:jdbc-user-service data-source-ref="dataSource" 
+				users-by-username-query="SELECT id, '{noop}'||password, 1 FROM users WHERE id = ?"
+				authorities-by-username-query="SELECT id, 'ROLE_'||upper(role) FROM users WHERE id = ?" 
+			/>
+			<!-- <security:user-service>
 				<security:user name="user" password="{noop}1234"
 					authorities="ROLE_USER" />
-					
 				<security:user name="admin" password="{noop}1234"
 					authorities="ROLE_ADMIN" />
-					
-			</security:user-service>
+			</security:user-service> -->
 		</security:authentication-provider>
 	</security:authentication-manager>
 
