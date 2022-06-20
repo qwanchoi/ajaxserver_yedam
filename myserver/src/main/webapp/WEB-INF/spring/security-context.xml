@@ -23,7 +23,7 @@
 			login-page="/login.jsp"
 			login-processing-url="/processLogin"
 			username-parameter="id"
-			authentication-failure-url=""
+			authentication-success-handler-ref="loginSuccessHandler"
 			default-target-url="/top.jsp" />
 		
 		<security:logout logout-url="/logout"
