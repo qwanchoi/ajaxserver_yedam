@@ -24,13 +24,13 @@ ${param.error}
       로그인 ID
     </dt>
     <dd>
-      <input type="text" name="paramLoginId">
+      <input type="text" name="id">
     </dd>
     <dt>
       패스워드
     </dt>
     <dd>
-      <input type="password" name="paramPassword">
+      <input type="password" name="password">
     </dd>
   </dl>
   <button>로그인</button>
