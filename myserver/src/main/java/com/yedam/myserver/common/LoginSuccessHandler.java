@@ -13,7 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
-import com.yedam.myserver.HomeController;
 import com.yedam.myserver.users.mapper.UserMapper;
 import com.yedam.myserver.users.vo.UserVO;
 
@@ -28,11 +27,13 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 	public void onAuthenticationSuccess(HttpServletRequest req, HttpServletResponse res,
 			Authentication authentication) throws IOException, ServletException {
 		String name = authentication.getName(); // 사용자ID
+		UserVO vo = (UserVO)authentication.getPrincipal();
+		req.getSession().setAttribute("suser", vo);
 		logger.info("handler=====" + name);
-		UserVO user = new UserVO();
-		user.setId(name);
-		user = map.findById(user);
-		logger.info("get user...?" + user.getName());
+//		UserVO user = new UserVO();
+//		user.setId(name);
+//		user = map.findById(user);
+//		logger.info("get user...?" + user.getName());
 		res.sendRedirect("top.jsp");
 	}
 }

@@ -31,15 +31,16 @@
 			
 		<security:access-denied-handler error-page="/accessDenied.jsp"/>
 			
-		<security:csrf disabled="true" />
+		<security:csrf disabled="false" />
 		
 	</security:http>
 	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:jdbc-user-service data-source-ref="dataSource" 
-				users-by-username-query="SELECT id, '{noop}'||password, 1 FROM users WHERE id = ?"
+		<security:authentication-provider user-service-ref="userServiceImpl">
+			<security:password-encoder hash="bcrypt"/>
+			<!-- <security:jdbc-user-service data-source-ref="dataSource" 
+				users-by-username-query="SELECT id, password, 1 FROM users WHERE id = ?"
 				authorities-by-username-query="SELECT id, 'ROLE_'||upper(role) FROM users WHERE id = ?" 
-			/>
+			/> -->
 			<!-- <security:user-service>
 				<security:user name="user" password="{noop}1234"
 					authorities="ROLE_USER" />
