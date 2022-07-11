@@ -35,9 +35,9 @@
 	<beans:bean id="myHandler" class="com.yedam.myserver.common.SpringSocketHandlerJSON" />
 	<websocket:handlers>
 		<websocket:mapping path="/BroadcastingServer.do" handler="myHandler" />
-<!-- 		<websocket:handshake-interceptors>
-			<beans:bean class="co.yedam.chat.HandshakeInterceptor"/>
-		</websocket:handshake-interceptors> -->
+		<websocket:handshake-interceptors>
+			<beans:bean class="co.yedam.myserver.common.HandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
 	</websocket:handlers>
 
 </beans:beans>
