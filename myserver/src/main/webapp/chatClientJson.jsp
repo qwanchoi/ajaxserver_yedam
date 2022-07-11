@@ -17,7 +17,7 @@ ${userid}님 로그인 <span id="eventDiv"></span>
 </body>
     <script type="text/javascript">
         var textarea = document.getElementById("messageWindow");
-        var webSocket = new WebSocket('ws://localhost/myserver/BroadcastingServer.do');
+        var webSocket = new WebSocket('ws://192.168.0.25/myserver/BroadcastingServer.do');
         var inputMessage = document.getElementById('inputMessage');
     webSocket.onerror = function(event) {
       onError(event)
@@ -32,13 +32,12 @@ ${userid}님 로그인 <span id="eventDiv"></span>
     };
 
     function onMessage(event) {
-    	/* msgvo  = JSON.parse(event.data);
+    	msgvo  = JSON.parse(event.data);
     	if(msgvo.cmd == "event") {
     		eventDiv.innerHTML = msgvo.msg;
-    	} else if(msgvo.cmd == "chat") {
+    	} else if(msgvo.cmd == "msg") {
         	textarea.value += msgvo.id + ": " + msgvo.msg + "\n";
-    	} */
-    	textarea.value += event.data;
+    	}
     }
 
     function onOpen(event) {
@@ -53,7 +52,7 @@ ${userid}님 로그인 <span id="eventDiv"></span>
         textarea.value += "나 : " + inputMessage.value + "\n";        
     	var obj = {};
        	obj.id = "${userid}";
-       	obj.cmd = "chat";
+       	obj.cmd = "msg";
        	obj.msg = inputMessage.value;
         
         webSocket.send( JSON.stringify(obj) );
