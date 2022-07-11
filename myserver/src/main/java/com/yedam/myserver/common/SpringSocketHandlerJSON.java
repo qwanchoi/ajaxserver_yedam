@@ -110,6 +110,6 @@ public class SpringSocketHandlerJSON extends TextWebSocketHandler implements Ini
 				}
 			}
 		};
-		thread.start();
+//		thread.start();
 	}
 }

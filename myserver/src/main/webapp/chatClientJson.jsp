@@ -32,12 +32,13 @@ ${userid}님 로그인 <span id="eventDiv"></span>
     };
 
     function onMessage(event) {
-    	msgvo  = JSON.parse(event.data);
+    	/* msgvo  = JSON.parse(event.data);
     	if(msgvo.cmd == "event") {
     		eventDiv.innerHTML = msgvo.msg;
     	} else if(msgvo.cmd == "chat") {
         	textarea.value += msgvo.id + ": " + msgvo.msg + "\n";
-    	}
+    	} */
+    	textarea.value += event.data;
     }
 
     function onOpen(event) {
